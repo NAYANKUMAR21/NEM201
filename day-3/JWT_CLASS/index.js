@@ -44,6 +44,7 @@ app.get("/user/:id", async (req, res) => {
   if (!token) {
     return res.send("Un authorized");
   }
+  
   try {
     const verify = jwt.verify(token, "SECRET123");
     if (verify) {
