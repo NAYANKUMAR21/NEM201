@@ -1,0 +1,4 @@
+db.cities.aggregate([{$match:{}},{$group:{_id:"$city",population:{$sum:"$pop"}}}])
+
+
+
