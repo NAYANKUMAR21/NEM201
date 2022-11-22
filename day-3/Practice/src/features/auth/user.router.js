@@ -1,7 +1,8 @@
+const jwt = require("jsonwebtoken");
 const express = require("express");
 const userModel = require("./user.model");
 const app = express.Router();
-const jwt = require("jsonwebtoken");
+
 
 app.get("/", async (req, res) => {
   try {
@@ -63,5 +64,7 @@ app.get("/:id", async (req, res) => {
     return res.send("INVALID TOKEN");
   }
 });
+
+
 
 module.exports = app;
