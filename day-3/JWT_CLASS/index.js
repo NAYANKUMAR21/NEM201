@@ -21,6 +21,7 @@ app.post("/signup", async (req, res) => {
     res.send("CANNOT BE CREATED");
   }
 });
+
 app.post("/login", async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -28,23 +29,33 @@ app.post("/login", async (req, res) => {
     if (user) {
       const token = jwt.sign(
         { id: user._id, name: user.name, age: user.age },
-        "SECRET123"
+        "SECRET123",
+        {
+          expiresIn: "7 days",
+        }
       );
-      return res.send({ message: "LOGIN SUCCESS", token });
+      const refreshToken = jwt.sign(
+        { id: user._id, name: user.name, age: user.age },
+        "REFRESH",
+        { expiresIn: "28 days" }
+      );
+
+      return res.send({ message: "LOGIN SUCCESS", token, refreshToken });
     }
     return res.status(401).send("INVALID CREDIANTAILS");
   } catch (er) {
     res.send("CANNOT BE LOGGED IN");
   }
 });
+
 app.get("/user/:id", async (req, res) => {
   let { id } = req.params;
   const token = req.headers.token;
-  console.log(req.headers)
+  console.log(req.headers);
   if (!token) {
     return res.send("Un authorized");
   }
-  
+
   try {
     const verify = jwt.verify(token, "SECRET123");
     if (verify) {
@@ -55,6 +66,27 @@ app.get("/user/:id", async (req, res) => {
     return res.send("INVALID TOKEN");
   }
 });
+
+app.post("/refresh", async (req, res) => {
+  const refreshToken = req.headers.token;
+  if (!refreshToken) {
+    return res.send("TOKEN NOT PRESENT");
+  }
+  try {
+    const verify = jwt.verify(refreshToken, "REFRESH");
+    if (verify) {
+      const newToken = jwt.sign(
+        { id: verify.id, name: verify.name },
+        "SECRET123",
+        { expiresIn: "7 days" }
+      );
+      return res.send({ token: newToken });
+    }
+  } catch (er) {
+    res.send(`${e.message} from refresh`);
+  }
+});
+
 mongoose
   .connect(
     "mongodb+srv://NAYAN:NAYAN@cluster0.u60zxbv.mongodb.net/B21?retryWrites=true&w=majority"
