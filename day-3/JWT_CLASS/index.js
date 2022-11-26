@@ -4,6 +4,7 @@ const cors = require("cors");
 const { default: mongoose } = require("mongoose");
 const UserModel = require("./models/User/User.model");
 const jwt = require("jsonwebtoken");
+const { default: axios } = require("axios");
 
 app.use(cors());
 app.use(express.json());
@@ -55,7 +56,6 @@ app.get("/user/:id", async (req, res) => {
   if (!token) {
     return res.send("Un authorized");
   }
-
   try {
     const verify = jwt.verify(token, "SECRET123");
     if (verify) {
@@ -86,7 +86,6 @@ app.post("/refresh", async (req, res) => {
     res.send(`${e.message} from refresh`);
   }
 });
-
 
 mongoose
   .connect(
