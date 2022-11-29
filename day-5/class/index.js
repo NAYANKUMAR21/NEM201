@@ -18,7 +18,7 @@ app.get("/", async (req, res) => {
   }
 });
 
-app.get("/github/callback", async (req, res) => {
+app.get("/access_token", async (req, res) => {
   const { code } = req.query;
   try {
     const x = await fetch("https://github.com/login/oauth/access_token", {
@@ -40,11 +40,12 @@ app.get("/github/callback", async (req, res) => {
       headers: {
         Authorization: `${x.token_type} ${x.access_token}`,
       },
-    }).then((res)=>res.json())
-    .catch(console.error)
+    })
+      .then((res) => res.json())
+      .catch(console.error);
 
-    console.log(userDetails)
-    res.send(userDetails);
+    console.log(userDetails,"inside node.js");
+    res.status(200).send(userDetails);
   } catch (er) {
     console.log(er.message);
     res.send(er.message);
