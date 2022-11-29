@@ -1,6 +1,4 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
-import { Navigate } from "react-router-dom";
 import Allroutes from "./Allroutes";
 import "./App.css";
 
@@ -20,7 +18,7 @@ const getData = async (id) => {
 function App() {
   
   
-  
+  getData()
   return (
     <div className="App">
       <Allroutes/>
