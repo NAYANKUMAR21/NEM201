@@ -6,11 +6,11 @@ const file = {
   email: { type: String, unique: true },
   password: { type: String },
   age: { type: Number },
-  role:{
-    type:String,
-    enum:["student","instructor","admin"],  
-    default:"student"
-  }
+  role: {
+    type: String,
+    enum: ["student", "instructor", "admin"],
+    default: "student",
+  },
 };
 const UserSchema = new mongoose.Schema(file);
 

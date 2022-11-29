@@ -4,10 +4,25 @@ const cors = require("cors");
 const { default: mongoose } = require("mongoose");
 const UserModel = require("./models/User/User.model");
 const jwt = require("jsonwebtoken");
-const { default: axios } = require("axios");
-
+const nodeMailer = require("nodemailer");
+const fs = require("fs");
+const hbs = require("handlebars");
+const userName = "Katrine Stracke";
+const emailUsername = "katrine.stracke@ethereal.email";
+const emailPassword = "thzNJtK2GPg8YNytqc";
+const template = hbs.compile(fs.readFileSync("./mail.hbs", "utf-8"));
 app.use(cors());
 app.use(express.json());
+
+const transporter = nodeMailer.createTransport({
+  host: "smtp.ethereal.email", //host is the serve domain (ethereal mail) if its for google we can write smtp.gmail.com
+  port: 587, //like we have port for HTTP likewise SMTP  will run 587
+  auth: {
+    // author is who is it sending
+    user: "katrine.stracke@ethereal.email",
+    pass: "thzNJtK2GPg8YNytqc",
+  },
+});
 
 app.get("/", (req, res) => {
   res.send("HELLO");
@@ -17,6 +32,23 @@ app.post("/signup", async (req, res) => {
   try {
     const user = new UserModel(req.body);
     await user.save();
+
+    transporter
+      .sendMail({
+        to: req.body.email,
+        from: "nayanph1@gmail.com",
+        subject: "Account created success",
+        html: template({
+          user: req.body.name,
+          age: req.body.age,
+          message: req.body.message,
+        }),
+        // text:""
+      })
+      .then((mail) => {
+        console.log(mail, "mail is successfully sent");
+      });
+
     return res.status(201).send("User created successfully");
   } catch (er) {
     res.send("CANNOT BE CREATED");
