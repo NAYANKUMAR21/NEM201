@@ -35,16 +35,16 @@ app.get("/access_token", async (req, res) => {
     })
       .then((res) => res.json())
       .catch(console.error);
-
+    
     const userDetails = await fetch("https://api.github.com/user", {
       headers: {
-        Authorization: `${x.token_type} ${x.access_token}`,
+        Authorization: `${x.token_type} ${x.access_token}//7days`,
       },
     })
       .then((res) => res.json())
       .catch(console.error);
-
-    console.log(userDetails,"inside node.js");
+      console.log(x,"from backedn")
+    console.log(userDetails, "inside node.js");
     res.status(200).send(userDetails);
   } catch (er) {
     console.log(er.message);

@@ -1,4 +1,5 @@
 import axios from "axios";
+import { useEffect } from "react";
 import Allroutes from "./Allroutes";
 import "./App.css";
 
@@ -16,8 +17,13 @@ const getData = async (id) => {
 };
 
 function App() {
-  
-  
+  // useEffect(() => {
+  //   const query = window.location.search;
+  //   const urlParams = new URLSearchParams(query);
+  //   const codeParams = urlParams.get("code");
+  //   console.log(codeParams, "from Login page");
+  //   localStorage.setItem("code");
+  // }, []);
   getData()
   return (
     <div className="App">

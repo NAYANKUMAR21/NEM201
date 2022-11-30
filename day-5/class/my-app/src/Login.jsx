@@ -1,13 +1,7 @@
-import React, { useEffect } from 'react'
+import React, { useEffect } from "react";
 
 const Login = () => {
-    useEffect(() => {
-        const query = window.location.search;
-        const urlParams = new URLSearchParams(query);
-        const codeParams = urlParams.get("code");
-        console.log(codeParams,"from Login page")
-      }, []);
-    
+  
   return (
     <div>
       <button>
@@ -17,7 +11,7 @@ const Login = () => {
         </a>
       </button>
     </div>
-  )
-}
+  );
+};
 
-export default Login
+export default Login;
