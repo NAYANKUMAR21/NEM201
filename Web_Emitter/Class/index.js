@@ -5,6 +5,9 @@ const http = require("http").createServer(app);
 const io = new Server(http);
 let count = 0;
 const history = [];
+
+
+
 io.on("connection", (socket) => {
   count += 1;
   console.log("A new User is connected");
@@ -25,6 +28,9 @@ io.on("connection", (socket) => {
     console.log("A user disconnect remaining user", count);
   });
 });
+
+
+
 app.get("/", (req, res) => {
   res.sendFile(__dirname + "/index.html");
 });
