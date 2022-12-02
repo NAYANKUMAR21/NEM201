@@ -17,8 +17,10 @@ app.get("/", async (req, res) => {
     res.send(`${er.message}`);
   }
 });
+const middlewaer = (req,res,next)=>{
 
-app.get("/access_token", async (req, res) => {
+}
+app.get("/access_token",middlewaer, async (req, res) => {
   const { code } = req.query;
   try {
     const x = await fetch("https://github.com/login/oauth/access_token", {
@@ -38,7 +40,7 @@ app.get("/access_token", async (req, res) => {
     
     const userDetails = await fetch("https://api.github.com/user", {
       headers: {
-        Authorization: `${x.token_type} ${x.access_token}//7days`,
+        Authorization: `${x.token_type} ${x.access_token}`, // 7days
       },
     })
       .then((res) => res.json())

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Masaigram</title>
+    <style>
+      h1 {
+        text-align: center;
+        color: teal;
+        font-family: Arial, Helvetica, sans-serif;
+      }
+      form {
+        text-align: center;
+        color: teal;
+      }
+      #inputText {
+        padding: 10px;
+        border-radius: 10%;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Masai gram</h1>
+    <form action="#" id="form">
+      <input
+        type="text"
+        placeholder="Enter Message"
+        autocomplete="off"
+        id="inputText"
+      />
+      <input type="submit" value="Send" />
+    </form>
+    <div id="msgs"></div>
+  </body>
+  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.5.4/socket.io.min.js"></script> -->
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    const msgs = document.querySelector("#msgs");
+    const socket = io(); //this socket and socket parameter inside connection are same
+    const form = document.querySelector("#form");
+    const input = document.querySelector("#inputText");
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      console.log("Message", input.value);
+      const message = input.value;
+      socket.emit("newText", message);
+    });
+
+    socket.on("newText", (message) => {
+      const div = document.createElement("div");
+      div.innerText = message;
+      msgs.appendChild(div);
+      console.log("got a new message", message);
+    });
+
+    socket.on("newUser", (count) => {
+      const div = document.createElement("div");
+      div.innerText = `A new user created total users are ${count}`;
+      msgs.appendChild(div);
+    });
+
+    socket.on("history", (history) => {
+        for (const h of history) {
+          const div = document.createElement("div");
+          div.innerText = h;
+          msgs.appendChild(div);
+        }
+      console.log(history, "from the index html file");
+    });
+  </script>
+</html>
