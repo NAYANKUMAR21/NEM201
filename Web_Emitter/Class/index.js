@@ -1,7 +1,9 @@
 const express = require("express");
-const { Server } = require("socket.io");
 const app = express(); //express is not a server
+
+const { Server } = require("socket.io");
 const http = require("http").createServer(app);
+
 const io = new Server(http);
 let count = 0;
 const history = [];

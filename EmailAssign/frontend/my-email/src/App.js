@@ -5,11 +5,13 @@ import Signup from "./pages/Signup";
 import Login from "./pages/Login";
 import Otp from "./pages/Otp";
 import Private from "./PrivateRoute/Private";
+import Home from "./pages/Home";
+
 function App() {
   return (
     <div className="App">
       <Routes>
-        <Route path="/"></Route>
+        <Route path="/" element={<Home></Home>}></Route>
         <Route path="/login" element={<Login />}></Route>
         <Route path="/signup" element={<Signup />}></Route>
         <Route
