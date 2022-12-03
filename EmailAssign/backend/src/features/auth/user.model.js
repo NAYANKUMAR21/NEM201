@@ -7,4 +7,12 @@ const file = {
 };
 const userSchema = new mongoose.Schema(file);
 const userModel = mongoose.model("user", userSchema);
+
+
+
+
+
+
 module.exports = userModel;
+
+

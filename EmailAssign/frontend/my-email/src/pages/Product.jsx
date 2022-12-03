@@ -20,6 +20,9 @@ const Product = () => {
   return (
     <div>
       <h1>This is products page</h1>
+      <div style={{ display: "flex", justifyContent: "flex-end" }}>
+        <button onClick={() => value.setState(false)}>Logout</button>
+      </div>
       <div
         style={{
           display: "grid",
