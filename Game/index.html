@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div style="display: flex; justify-content: space-around">
+      <div id="playera">
+        <span
+          ><h1>Player 1</h1>
+          <h4 id="health2">100</h4></span
+        >
+        <button id="buttona">SEND</button>
+      </div>
+      <div id="playerb">
+        <span
+          ><h1>Player 2</h1>
+          <h4 id="health1">100</h4></span
+        >
+        <p id="para">Waiting for user to join</p>
+      </div>
+    </div>
+  </body>
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    const socket = io();
+    const button1 = document.querySelector("#buttona");
+    const health1 = document.querySelector("#health1");
+    let id ;
+    button1.addEventListener("click", player1);
+    function player1() {
+      let x = Math.floor(Math.random() * 90 + 10);
+      let subtract = Math.abs(Number(health1.innerText) - Number(x));
+      const p = document.createElement("p");
+      health1.innerHTML = "";
+      health1.innerText = "";
+      p.innerText = subtract;
+      health1.appendChild(p);
+      socket.emit("Player1", x);
+      
+    }
+    const playerb = document.querySelector("#playerb");
+    const player2 = document.querySelector("#para");
+    socket.on("second", (x) => {
+      player2.innerText = "";
+      const p = document.createElement("p");
+      p.innerText = "Online";
+      player2.appendChild(p);
+      console.log(x);
+      socket.emit("send");
+    });
+    socket.on("send", () => {
+      player2.innerText = "";
+      const p = document.createElement("p");
+      p.innerText = "Online";
+      player2.appendChild(p);
+    });
+
+    socket.on("off", (x) => {
+      player2.innerText = "";
+      const p = document.createElement("p");
+      p.innerText = "Offline";
+      player2.appendChild(p);
+      console.log(x, "inside");
+    });
+
+    const health2 = document.querySelector("#health2");
+    socket.on("number", (x) => {
+      //   let subtract = Math.abs(Number(health1.innerText) - Number(x));
+      //   const p = document.createElement("p");
+      //   health1.innerHTML = "";
+      //   health1.innerText = "";
+      //   p.innerText = subtract;
+      //   health1.appendChild(p);
+      let subtract = Math.abs(Number(health2.innerText) - Number(x));
+      const p = document.createElement("p");
+      health2.innerHTML = "";
+      health2.innerText = "";
+      p.innerText = subtract;
+      health2.appendChild(p);
+    });
+  </script>
+</html>
