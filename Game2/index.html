@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Game</title>
+    <style>
+      h1,
+      button {
+        text-align: center;
+        margin: auto;
+      }
+      #container {
+        display: flex;
+        justify-content: space-evenly;
+      }
+      #container > div {
+        border: 1px solid black;
+        border-radius: 20px;
+        padding: 10px 20px 10px 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Welcome home</h1>
+    <div id="container">
+      <div id="continer1">
+        <h1>Player 1</h1>
+        <span><h1 id="changeA">100</h1></span>
+        <button id="button">Attach</button>
+      </div>
+      <div id="continer2">
+        <h1>Player 2</h1>
+        <span><h1 id="change">100</h1></span>
+        <p id="para">Waiting for the player</p>
+      </div>
+    </div>
+  </body>
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    const socket = io();
+    const para = document.querySelector("#para");
+    const button = document.querySelector("#button");
+    const change = document.querySelector("#change");
+    let count = 0
+    button.addEventListener("click", player1);
+    function player1() {
+      let x = Math.floor(Math.random() * 5);
+      let subtract = Number(change.innerText) - x;
+      const p = document.createElement("p");
+      p.innerText = subtract;
+      change.innerHTML = "";
+      change.innerText = "";
+      change.appendChild(p);
+      socket.emit("newNumber", subtract);
+    }
+    socket.on("second", () => {
+      //   para.innerHTML = "";
+      //   para.innerText = "";
+      //   const p = document.createElement("p");
+      //   p.innerText = "Online";
+      //   para.appendChild(p);
+      socket.emit("second");
+      //   console.log("inside send html");
+    });
+    socket.on("send", () => {
+      para.innerHTML = "";
+      para.innerText = "";
+      const p = document.createElement("p");
+      p.innerText = "Online";
+      para.appendChild(p);
+      console.log("inside send html");
+    });
+
+    const changeA = document.querySelector("#changeA");
+
+    socket.on("addOther", (x) => {
+      changeA.innerHTML = "";
+      changeA.innerText = "";
+      const p = document.createElement("p");
+      p.innerText = x;
+      changeA.appendChild(p);
+      console.log(x, "from html");
+    });
+  </script>
+</html>
