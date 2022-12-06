@@ -1,0 +1,64 @@
+{
+  "set": [
+    {
+      "id": 1,
+      "curreny": "Euro",
+      "current_value": 94,
+      "user": 0
+    },
+    {
+      "id": 2,
+      "curreny": "Rupiah",
+      "current_value": 83,
+      "user": 0
+    },
+    {
+      "id": 3,
+      "curreny": "Real",
+      "current_value": 47,
+      "user": 0
+    },
+    {
+      "id": 4,
+      "curreny": "Ruble",
+      "current_value": 99,
+      "user": 0
+    },
+    {
+      "id": 5,
+      "curreny": "Zloty",
+      "current_value": 49,
+      "user": 0
+    },
+    {
+      "id": 6,
+      "curreny": "Krone",
+      "current_value": 96,
+      "user": 0
+    },
+    {
+      "id": 7,
+      "curreny": "Krone",
+      "current_value": 10,
+      "user": 0
+    },
+    {
+      "id": 8,
+      "curreny": "Sol",
+      "current_value": 41,
+      "user": 0
+    },
+    {
+      "id": 9,
+      "curreny": "Bolivar",
+      "current_value": 57,
+      "user": 0
+    },
+    {
+      "id": 10,
+      "curreny": "Peso",
+      "current_value": 96,
+      "user": 0
+    }
+  ]
+}
