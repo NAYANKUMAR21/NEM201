@@ -1,0 +1,44 @@
+{
+  "todo": [
+    {
+      "id": 1,
+      "task": "react"
+    },
+    {
+      "id": 2,
+      "task": "Next"
+    },
+    {
+      "id": 3,
+      "task": "JS"
+    },
+    {
+      "id": 4,
+      "task": "Express"
+    },
+    {
+      "id": 5,
+      "task": "GOlang"
+    },
+    {
+      "id": 6,
+      "task": "Rust"
+    },
+    {
+      "id": 7,
+      "task": "nayan"
+    },
+    {
+      "id": 1670656601673,
+      "task": "NAYAN"
+    },
+    {
+      "id": 1670657114695,
+      "task": "learn Roust "
+    },
+    {
+      "id": 1670657150466,
+      "task": "n"
+    }
+  ]
+}
