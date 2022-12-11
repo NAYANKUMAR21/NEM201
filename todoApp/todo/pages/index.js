@@ -3,15 +3,17 @@ import axios from "axios";
 import { useState } from "react";
 export default function Home({ user }) {
   const [tasks, setTasks] = useState("");
-  console.log(tasks);
+  const [data, setData] = useState(user);
   const handleClick = (e) => {
     e.preventDefault();
-    postData(tasks);
-    
+    postData(tasks).then(() => {
+      getData().then((res) => setData(res));
+    });
+    setTasks("");
   };
   return (
     <div style={{ textAlign: "center" }}>
-      <h1>Nayan kumar</h1>
+      <h1>TODO</h1>
       <form onSubmit={handleClick}>
         <input
           placeholder="Enter tasks"
@@ -27,7 +29,7 @@ export default function Home({ user }) {
           gap: "20px",
         }}
       >
-        {user.map((item) => {
+        {data?.map((item) => {
           return (
             <div key={item.id}>
               <Link
@@ -59,11 +61,21 @@ export const getServerSideProps = async () => {
     console.log(er.message, "inside get serve side props");
   }
 };
-const postData = async (task) => {
+export const postData = async (task) => {
   try {
     const obj = { id: Date.now(), task };
     const get = await axios.post("http://localhost:8080/todo", obj);
-    console.log(get);
+    console.log(get, "from post");
+  } catch (er) {
+    console.log(er.message);
+  }
+};
+
+const getData = async () => {
+  try {
+    let { data } = await axios.get("http://localhost:8080/todo");
+    console.log(data, "from get ");
+    return data;
   } catch (er) {
     console.log(er.message);
   }
