@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 const file = {
   name: { type: String },
   powers: { type: Array },
@@ -7,5 +7,5 @@ const file = {
   metadata: { type: Object },
 };
 const heroSchema = new mongoose.Schema(file);
-const heroModel = mongoose.model("Hero", heroSchema);
-module.exports = heroModel;
+const heroModel = mongoose.models.Hero || mongoose.model("Hero", heroSchema);
+export default heroModel;
